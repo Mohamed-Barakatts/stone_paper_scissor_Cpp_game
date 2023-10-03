@@ -1,6 +1,7 @@
 // بسم الله
 #include <iostream>
 #include <cstdlib>
+#include <limits> // We must call this library to make the code run correctally during valedate nums.
 using namespace std;
 
 // 01:
@@ -141,10 +142,19 @@ void set_winner_screen_color(enWinner winner) // To change the terminal backgrou
 short rounds_count()
 {
     short rounds = 0;
+    // Do-While Loop ==> To check that the num is between 1 and 10.
+    // While Loop ==> To check that the input is just nums.
     do
     {
         cout << "\nHow many rounds will you play 1 to 10? : ";
         cin >> rounds;
+        while (cin.fail()) // true => NOT num.
+        {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Invalid Input! Please enter only numbers: ";
+            cin >> rounds;
+        }
     } while (rounds < 1 || rounds > 10);
 
     return rounds;
@@ -158,6 +168,13 @@ enGameChoice read_player_choice()
     {
         cout << "Your choice:  [1]:Stone, [2]:Paper, [3]:Scissors? : ";
         cin >> choice;
+        while (cin.fail()) // true => NOT num.
+        {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Invalid Input! Please enter only numbers: ";
+            cin >> choice;
+        }
     } while (choice < 1 || choice > 3);
 
     return (enGameChoice)choice;
